@@ -12,8 +12,8 @@
 		title={data.seo.title}
 		description={data.seo.description}
 		url={data.seo.url}
-		siteUrl="https://seo-lib.svelte.dev"
-		siteName="Svelte SEO/GEO Lib"
+		siteUrl="https://quartzo.heydan.dev"
+		siteName="Quartzo - SEO/GEO Lib"
 		image={data.seo.image}
 		imageAlt={data.seo.imageAlt}
 		publishedDate={data.seo.publishedDate}

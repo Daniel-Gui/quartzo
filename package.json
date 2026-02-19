@@ -4,7 +4,7 @@
 	"description": "Uma biblioteca para SvelteKit com foco em SEO e GEO.",
 	"author": "Daniel Guimarães",
 	"license": "MIT",
-	"homepage": "https://seo-lib.svelte.dev",
+	"homepage": "https://quartzo.heydan.dev",
 	"keywords": [
 		"svelte",
 		"sveltekit",
