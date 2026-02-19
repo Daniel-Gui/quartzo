@@ -1,0 +1,182 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	--font-inter: 'Inter', sans-serif;
+	--color-mint-100: #e3eeec;
+	--color-mint-200: #d9e6e3;
+	--color-mint-300: #bac8c5;
+	--color-mint-400: #9baaa7;
+	--color-mint-500: #7a8d89;
+	--color-mint-600: #627571;
+	--color-mint-700: #4a5d59;
+	--color-mint-800: #324541;
+	--color-mint-900: #1a2e2b;
+}
+
+@layer base {
+	:root {
+		color-scheme: light;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		@apply bg-mint-100 font-inter text-mint-900 antialiased;
+		background-image:
+			radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.4) 0px, transparent 50%),
+			radial-gradient(at 100% 100%, rgba(122, 141, 137, 0.1) 0px, transparent 50%);
+		background-attachment: fixed;
+	}
+
+	.ds-skip-link {
+		@apply absolute top-4 left-4 z-50 -translate-y-24 rounded-lg bg-white/90 px-4 py-2 text-sm font-medium text-mint-900 shadow-lg backdrop-blur-sm transition-transform;
+	}
+
+	.ds-skip-link:focus-visible {
+		@apply translate-y-0 outline-2 outline-offset-2 outline-mint-500;
+	}
+}
+
+@keyframes ds-elastic {
+	0% {
+		transform: scale(1);
+	}
+	42% {
+		transform: scale(0.92);
+	}
+	72% {
+		transform: scale(1.04);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.animate-elastic {
+	animation: ds-elastic 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer components {
+	.ds-page {
+		@apply min-h-dvh;
+	}
+
+	.ds-container {
+		@apply mx-auto w-full max-w-3xl px-6;
+		padding-left: max(1.5rem, env(safe-area-inset-left));
+		padding-right: max(1.5rem, env(safe-area-inset-right));
+	}
+
+	.ds-section {
+		@apply py-20;
+	}
+
+	.ds-muted {
+		@apply text-mint-500;
+	}
+
+	.ds-h1 {
+		@apply text-4xl font-semibold tracking-tight text-mint-900 sm:text-5xl lg:text-6xl;
+	}
+
+	.ds-h2 {
+		@apply text-2xl font-semibold tracking-tight text-mint-900;
+	}
+
+	.ds-card {
+		@apply rounded-3xl border border-white/60 bg-white/40 shadow-xl shadow-mint-500/10 backdrop-blur-xl transition-all;
+	}
+
+	.ds-card-body {
+		@apply p-8 sm:p-10;
+	}
+
+	.ds-btn {
+		@apply inline-flex min-h-[44px] touch-manipulation items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium inset-shadow-sm transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50;
+	}
+
+	.ds-btn-primary {
+		@apply bg-mint-900 text-white shadow-lg shadow-mint-900/20 inset-shadow-mint-500 hover:-translate-y-0.5 hover:bg-black hover:shadow-xl hover:shadow-mint-900/30 focus-visible:outline-mint-900;
+	}
+
+	.ds-btn-secondary {
+		@apply bg-white/50 text-mint-900 shadow-sm ring-1 ring-mint-200 hover:bg-white/80 hover:shadow hover:ring-mint-300 focus-visible:outline-mint-500;
+	}
+
+	.ds-pill {
+		@apply inline-flex items-center rounded-full border border-mint-200 bg-white/50 px-3 py-1 text-xs font-medium text-mint-500 backdrop-blur-sm;
+	}
+
+	.ds-code {
+		@apply overflow-x-auto rounded-full bg-mint-900 px-5 py-3 font-mono text-sm text-white shadow-inner;
+	}
+
+	.ds-link {
+		@apply font-medium text-mint-900 underline decoration-mint-300 underline-offset-4 transition-colors hover:decoration-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500;
+	}
+
+	.ds-divider {
+		@apply border-t border-mint-200;
+	}
+
+	.ds-accordion {
+		@apply divide-y divide-mint-200 overflow-hidden rounded-2xl border border-white/60 bg-white/40 shadow-lg shadow-mint-500/10 backdrop-blur-xl;
+	}
+
+	.ds-accordion-item {
+		@apply px-0 py-0;
+	}
+
+	.ds-accordion-trigger {
+		@apply flex min-h-[44px] w-full touch-manipulation items-center justify-between gap-4 px-6 py-5 text-left font-medium text-mint-500 transition-colors hover:bg-white/40 hover:text-mint-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500;
+	}
+
+	.ds-accordion-icon {
+		@apply h-5 w-5 shrink-0 text-mint-300 transition-colors group-hover:text-mint-500;
+	}
+
+	.ds-accordion-panel {
+		@apply px-6 pt-2 pb-6 text-sm leading-relaxed text-mint-500;
+	}
+
+	.ds-tabs {
+		@apply flex flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/40 shadow-xl shadow-mint-500/10 backdrop-blur-xl transition-all;
+	}
+
+	.ds-tab-list {
+		@apply scrollbar-hide flex overflow-x-auto border-b border-mint-200 bg-white/50 backdrop-blur-sm;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.ds-tab-trigger {
+		@apply relative shrink-0 cursor-pointer px-6 py-4 text-sm font-medium whitespace-nowrap transition-colors hover:text-mint-900 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-mint-500;
+	}
+
+	.ds-tab-trigger[aria-selected='true'] {
+		@apply text-mint-900;
+	}
+
+	.ds-tab-trigger[aria-selected='false'] {
+		@apply text-mint-500;
+	}
+
+	.ds-tab-indicator {
+		@apply absolute bottom-0 left-0 h-0.5 w-full bg-mint-900;
+	}
+
+	.ds-tab-content {
+		@apply relative min-h-[530px] p-6 md:p-8;
+	}
+}
+
+@utility scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
