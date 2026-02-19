@@ -5,8 +5,8 @@ export const load = async () => {
 			description:
 				'Biblioteca universal para otimização de SEO, Open Graph e Schema.org em projetos SvelteKit.',
 			url: '/',
-			image: '/images/seo-banner.jpg',
-			imageAlt: 'Banner com o logo do Svelte e ícones de SEO',
+			image: '/quartzo-ogimage.webp',
+			imageAlt: 'Banner da biblioteca Quartzo',
 			publishedDate: new Date().toISOString(),
 			tags: ['Svelte', 'SEO', 'Schema.org', 'Open Graph'],
 			breadcrumbs: [
