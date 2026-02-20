@@ -4,9 +4,9 @@
 			<div class="ds-card-body">
 				<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 					<div class="ds-muted text-sm">
-						Feito com ❤️ por <a class="ds-link" href="https://heydan.dev">Daniel Guimarães</a>
+						Made with ❤️ by <a class="ds-link" href="https://heydan.dev">Daniel Guimarães</a>
 					</div>
-					<a class="ds-btn ds-btn-primary" href="#hero">Instalar</a>
+					<a class="ds-btn ds-btn-primary" href="#hero">Install</a>
 				</div>
 			</div>
 		</div>

@@ -14,28 +14,25 @@
 	description={data.seo.description}
 	url={data.seo.url}
 	siteUrl="https://quartzo.heydan.dev"
-	siteName="Quartzo - SEO/GEO Lib"
+	siteName="Quartzo"
 	image={data.seo.image}
 	imageAlt={data.seo.imageAlt}
-	publishedDate={data.seo.publishedDate}
 	tags={data.seo.tags}
 	breadcrumbs={data.seo.breadcrumbs}
 	alternates={data.seo.alternates}
 	type="website"
-	language="pt-BR"
-	locale="pt_BR"
-	twitterSite="@sveltejs"
-	twitterCreator="@heydan_dev"
+	language="en-US"
+	locale="en_US"
+	twitterCreator="@dandanielGui"
+	author="Daniel Guimarães"
 />
 
-<div class="ds-page pt-16">
-	<Navbar
-		githubUrl="https://github.com/Daniel-Gui/quartzo"
-		npmUrl="https://www.npmjs.com/package/quartzo"
-	/>
+<Navbar
+	githubUrl="https://github.com/Daniel-Gui/quartzo"
+	npmUrl="https://www.npmjs.com/package/quartzo"
+/>
 
-	<Hero />
-	<UsageTabs />
-	<Faq />
-	<Footer />
-</div>
+<Hero />
+<UsageTabs />
+<Faq />
+<Footer />

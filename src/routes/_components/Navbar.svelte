@@ -24,8 +24,8 @@
 	}
 
 	const links = [
-		{ href: '#hero', label: 'Instalação' },
-		{ href: '#usage', label: 'Como usar' },
+		{ href: '#hero', label: 'Install' },
+		{ href: '#usage', label: 'Usage' },
 		{ href: '#faq', label: 'FAQ' }
 	];
 </script>
