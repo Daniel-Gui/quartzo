@@ -171,6 +171,34 @@
 	.ds-tab-content {
 		@apply relative min-h-[530px] p-6 md:p-8;
 	}
+
+	.ds-navbar {
+		@apply fixed top-0 left-0 z-50 w-full border-b border-white/20 bg-white/80 backdrop-blur-md transition-all duration-300 supports-[backdrop-filter]:bg-white/60;
+	}
+
+	.ds-navbar-container {
+		@apply mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8;
+	}
+
+	.ds-navbar-brand {
+		@apply flex items-center gap-2 text-xl font-bold tracking-tight text-mint-900;
+	}
+
+	.ds-nav-link {
+		@apply text-sm font-medium text-mint-700 transition-colors hover:text-mint-900;
+	}
+
+	.ds-nav-icon {
+		@apply text-mint-700 transition-colors hover:text-mint-900;
+	}
+
+	.ds-mobile-menu {
+		@apply border-t border-white/20 bg-white/95 backdrop-blur-md md:hidden;
+	}
+
+	.ds-mobile-nav-link {
+		@apply text-base font-medium text-mint-700 hover:text-mint-900;
+	}
 }
 
 @utility scrollbar-hide {

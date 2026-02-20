@@ -104,7 +104,7 @@
 	}
 </script>
 
-<section class="ds-section">
+<section id="usage" class="ds-section">
 	<div class="ds-container">
 		<div class="mb-8 text-center">
 			<h2 class="ds-h2 mb-4">Como usar</h2>
