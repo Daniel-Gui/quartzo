@@ -166,7 +166,7 @@
 						: ''}"
 				>
 					<button
-						class="flex w-full touch-manipulation items-center justify-between gap-4 px-6 py-5 text-left"
+						class="flex w-full cursor-pointer touch-manipulation items-center justify-between gap-4 px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2"
 						data-faq-trigger="true"
 						type="button"
 						aria-expanded={isOpen}
