@@ -4,6 +4,6 @@
 	const { children } = $props();
 </script>
 
-<main id="main" tabindex="-1">
+<main class="ds-page flex flex-col pt-16" id="main" tabindex="-1">
 	{@render children()}
 </main>

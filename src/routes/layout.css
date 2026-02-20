@@ -173,7 +173,7 @@
 	}
 
 	.ds-navbar {
-		@apply fixed top-0 left-0 z-50 w-full border-b border-white/20 bg-white/80 backdrop-blur-md transition-all duration-300 supports-[backdrop-filter]:bg-white/60;
+		@apply fixed top-0 left-0 z-50 w-full border-b border-white/20 bg-white/80 backdrop-blur-md transition-all duration-300 supports-backdrop-filter:bg-white/60;
 	}
 
 	.ds-navbar-container {

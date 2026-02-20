@@ -21,52 +21,52 @@
 
 	const defaultItems: FaqItem[] = [
 		{
-			title: 'Como instalo a biblioteca?',
-			body: 'Basta rodar o comando `npm install quartzo` no terminal do seu projeto SvelteKit. A biblioteca é compatível com Svelte 5 e SvelteKit 2.'
+			title: 'How do I install the library?',
+			body: 'Simply run `npm install quartzo` in your SvelteKit project terminal. The library is compatible with Svelte 5 and SvelteKit 2.'
 		},
 		{
-			title: 'O que é SEO?',
-			body: 'SEO (Search Engine Optimization) é o conjunto de práticas para ajudar mecanismos de busca a entender e indexar suas páginas. O objetivo é aumentar a visibilidade orgânica com conteúdo útil, performance e metadados consistentes.'
+			title: 'What is SEO?',
+			body: 'SEO (Search Engine Optimization) is the set of practices that help search engines understand and index your pages. The goal is to increase organic visibility through useful content, performance, and consistent metadata.'
 		},
 		{
-			title: 'O que é GEO (para IAs)?',
-			body: 'GEO (Generative Engine Optimization) foca em tornar o conteúdo fácil de ser compreendido e citado por assistentes de IA. Além de SEO tradicional, prioriza estrutura, dados (Schema.org), clareza, contexto e consistência em títulos, descrições e entidades.'
+			title: 'What is GEO (for AIs)?',
+			body: 'GEO (Generative Engine Optimization) focuses on making content easy to understand and cite by AI assistants. Beyond traditional SEO, it prioritizes structure, data (Schema.org), clarity, context, and consistency in titles, descriptions, and entities.'
 		},
 		{
-			title: 'Por que <title> e meta description importam?',
-			body: 'São os principais sinais de resumo do conteúdo. Eles influenciam entendimento, apresentação em resultados e taxa de clique. Em sites com muitas páginas, manter isso consistente e único por página é essencial.'
+			title: 'Why do <title> and meta description matter?',
+			body: 'They are the primary signals summarizing your content. They influence understanding, presentation in results, and click-through rate. On sites with many pages, keeping these consistent and unique per page is essential.'
 		},
 		{
-			title: 'O que é Canonical URL?',
-			body: 'É a URL “oficial” de uma página. Evita conteúdo duplicado quando o mesmo conteúdo pode ser acessado por diferentes URLs (parâmetros, trailing slash, etc.).'
+			title: 'What is a Canonical URL?',
+			body: 'It is the "official" URL of a page. It prevents duplicate content when the same content can be accessed through different URLs (parameters, trailing slashes, etc.).'
 		},
 		{
-			title: 'O que é Open Graph (OG)?',
-			body: 'Open Graph define como sua página aparece ao ser compartilhada (ex.: WhatsApp, LinkedIn). Inclui título, descrição, imagem e tipo de conteúdo.'
+			title: 'What is Open Graph (OG)?',
+			body: 'Open Graph defines how your page appears when shared (e.g., on WhatsApp, LinkedIn). It includes title, description, image, and content type.'
 		},
 		{
-			title: 'O que são Twitter Cards?',
-			body: 'São metatags específicas para melhorar o preview do link no X (Twitter). Normalmente usa “summary_large_image” quando existe imagem para maximizar a legibilidade.'
+			title: 'What are Twitter Cards?',
+			body: 'They are specific meta tags to improve link previews on X (Twitter). Typically uses "summary_large_image" when an image exists to maximize readability.'
 		},
 		{
-			title: 'O que é Schema.org JSON-LD?',
-			body: 'É um formato de dados estruturados que descreve o que a página é (artigo, perfil, obra). Ajuda buscadores e IAs a entender entidades, autores, datas e tópicos de forma confiável.'
+			title: 'What is Schema.org JSON-LD?',
+			body: 'It is a structured data format that describes what the page is (article, profile, creative work). It helps search engines and AIs understand entities, authors, dates, and topics reliably.'
 		},
 		{
-			title: 'Para que serve robots/noindex?',
-			body: 'Permite controlar indexação. Útil para variações muito finas ou páginas que você não quer nos resultados. “noindex” pede para buscadores não indexarem a página; “nofollow” reduz a transmissão de sinais por links.'
+			title: 'What are robots/noindex used for?',
+			body: 'They allow you to control indexing. Useful for thin variations or pages you don\'t want in search results. "noindex" asks search engines not to index the page; "nofollow" reduces signal transmission through links.'
 		},
 		{
-			title: 'Para que serve hreflang?',
-			body: 'Indica versões alternativas por idioma/região, evitando canibalização entre páginas traduzidas. Ajuda buscadores a entregar a versão correta ao usuário.'
+			title: 'What is hreflang used for?',
+			body: 'It indicates alternative versions by language/region, preventing cannibalization between translated pages. It helps search engines deliver the correct version to the user.'
 		},
 		{
-			title: 'O que são breadcrumbs (trilha de navegação)?',
-			body: 'São links hierárquicos (Home → Categoria → Página) que melhoram navegação e ajudam buscadores a entender a estrutura do site. Também podem ser enviados como dados estruturados.'
+			title: 'What are breadcrumbs?',
+			body: 'They are hierarchical links (Home → Category → Page) that improve navigation and help search engines understand the site structure. They can also be sent as structured data.'
 		},
 		{
-			title: 'Por que SSR ajuda em SEO?',
-			body: 'Com SSR, o HTML inicial já contém as meta tags e o conteúdo base, o que facilita a indexação. Em SvelteKit, isso é o padrão e é recomendado para sites de conteúdo.'
+			title: 'Why does SSR help with SEO?',
+			body: 'With SSR, the initial HTML already contains the meta tags and base content, making indexing easier. In SvelteKit, this is the default and is recommended for content-driven sites.'
 		}
 	];
 
@@ -150,9 +150,9 @@
 
 	<div class="ds-container relative z-10">
 		<div class="mb-16 space-y-4 text-center">
-			<h2 class="ds-h2">Perguntas Frequentes</h2>
+			<h2 class="ds-h2">Frequently Asked Questions</h2>
 			<p class="ds-muted mx-auto max-w-2xl text-lg">
-				Conceitos essenciais para entender o impacto da biblioteca no seu projeto.
+				Essential concepts to understand the library's impact on your project.
 			</p>
 		</div>
 

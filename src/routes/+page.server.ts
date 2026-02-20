@@ -1,21 +1,18 @@
 export const load = async () => {
 	return {
 		seo: {
-			title: 'Otimização SEO e GEO com Svelte 5',
+			title: 'SEO & GEO Optimization for Svelte 5',
 			description:
-				'Biblioteca universal para otimização de SEO, Open Graph e Schema.org em projetos SvelteKit.',
+				'A universal library for SEO, Open Graph, and Schema.org optimization in SvelteKit projects.',
 			url: '/',
 			image: '/quartzo-ogimage.webp',
-			imageAlt: 'Banner da biblioteca Quartzo',
-			publishedDate: new Date().toISOString(),
+			imageAlt: 'Quartzo library banner',
 			tags: ['Svelte', 'SEO', 'Schema.org', 'Open Graph'],
 			breadcrumbs: [
-				{ name: 'Início', url: '/' },
-				{ name: 'SEO Lib', url: '/seo-lib' }
+				{ name: 'Home', url: '/' },
 			],
 			alternates: [
 				{ hreflang: 'pt-BR', href: '/' },
-				{ hreflang: 'en-US', href: '/en' }
 			]
 		}
 	};

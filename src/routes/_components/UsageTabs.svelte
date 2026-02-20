@@ -17,23 +17,23 @@
 			id: 'server',
 			label: '1. Server Loader',
 			fileName: '+page.server.ts',
-			description: 'Carregue os metadados no servidor para garantir SEO dinâmico e SSR correto.',
+			description: 'Load metadata on the server to ensure dynamic SEO and proper SSR.',
 			code: `export const load = async () => {
   return {
     seo: {
-      title: 'Meu Artigo Incrível',
-      description: 'Um guia completo sobre Svelte 5 e SEO.',
-      url: '/blog/meu-artigo',
+      title: 'My Awesome Article',
+      description: 'A complete guide on Svelte 5 and SEO.',
+      url: '/blog/my-article',
       image: '/images/cover.jpg',
-      imageAlt: 'Capa do artigo com logo Svelte',
+      imageAlt: 'Article cover with Svelte logo',
       publishedDate: '2023-10-27T10:00:00Z',
       tags: ['Svelte', 'SEO', 'Web Development'],
       breadcrumbs: [
         { name: 'Blog', url: '/blog' },
-        { name: 'Meu Artigo Incrível', url: '/blog/meu-artigo' }
+        { name: 'My Awesome Article', url: '/blog/my-article' }
       ],
       alternates: [
-        { hreflang: 'pt-BR', href: '/blog/meu-artigo' },
+        { hreflang: 'pt-BR', href: '/blog/my-article' },
         { hreflang: 'en-US', href: '/en/blog/my-article' }
       ]
     }
@@ -45,7 +45,7 @@
 			label: '2. Page Component',
 			fileName: '+page.svelte',
 			description:
-				'Receba os dados e passe para o componente. O tipo "article" ativa recursos específicos.',
+				'Receive data and pass it to the component. The "article" type enables specific features.',
 			code: `\u003Cscript lang="ts">
   import { SeoGeoOptimizer } from 'quartzo';
 
@@ -56,8 +56,8 @@
   title={data.seo.title}
   description={data.seo.description}
   url={data.seo.url}
-  siteUrl="https://meusite.com"
-  siteName="Meu Blog Tech"
+  siteUrl="https://mysite.com"
+  siteName="My Tech Blog"
   image={data.seo.image}
   imageAlt={data.seo.imageAlt}
   type="article"
@@ -74,15 +74,15 @@
 			id: 'advanced',
 			label: 'Advanced GEO',
 			fileName: '+page.svelte',
-			description: 'Exemplo avançado com configurações de robôs e localização geográfica.',
+			description: 'Advanced example with robots directives and geographic localization.',
 			code: `<SeoGeoOptimizer
-  title="Produto Premium"
-  description="O melhor produto do mercado."
-  url="https://loja.com/produto"
+  title="Premium Product"
+  description="The best product on the market."
+  url="https://store.com/product"
   breadcrumbs={[
-    { name: 'Loja', url: '/' },
-    { name: 'Produtos', url: '/produtos' },
-    { name: 'Premium', url: '/produtos/premium' }
+    { name: 'Store', url: '/' },
+    { name: 'Products', url: '/products' },
+    { name: 'Premium', url: '/products/premium' }
   ]}
   alternates={[
     { hreflang: 'pt-BR', href: '/br/produto' },
@@ -107,13 +107,13 @@
 <section id="usage" class="ds-section">
 	<div class="ds-container">
 		<div class="mb-8 text-center">
-			<h2 class="ds-h2 mb-4">Como usar</h2>
-			<p class="ds-muted">Exemplos práticos de integração em seu projeto SvelteKit.</p>
+			<h2 class="ds-h2 mb-4">How to Use</h2>
+			<p class="ds-muted">Practical integration examples for your SvelteKit project.</p>
 		</div>
 
 		<div class="ds-tabs">
 			<!-- Tabs Header -->
-			<div class="ds-tab-list" role="tablist" aria-label="Exemplos de uso">
+			<div class="ds-tab-list" role="tablist" aria-label="Usage examples">
 				{#each tabs as tab (tab.id)}
 					{@const isActive = activeTab === tab.id}
 					<button
@@ -165,7 +165,7 @@
 									<span class="font-mono text-xs text-mint-200/60">
 										{tab.fileName}
 									</span>
-									<CopyButton text={tab.code} class="!p-1.5" />
+									<CopyButton text={tab.code} class="p-1.5!" />
 								</div>
 
 								<!-- Code Body -->
