@@ -1,7 +1,7 @@
 {
 	"name": "quartzo",
-	"version": "0.0.4",
-	"description": "Uma biblioteca para SvelteKit com foco em SEO e GEO.",
+	"version": "0.0.5",
+	"description": "A SvelteKit library focused on SEO and GEO optimization.",
 	"author": "Daniel Guimarães",
 	"license": "MIT",
 	"homepage": "https://quartzo.heydan.dev",
