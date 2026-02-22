@@ -26,7 +26,7 @@
       url: '/blog/my-article',
       image: '/images/cover.jpg',
       imageAlt: 'Article cover with Svelte logo',
-      publishedDate: '2023-10-27T10:00:00Z',
+      publishedDate: '2026-02-22T10:00:00Z',
       tags: ['Svelte', 'SEO', 'Web Development'],
       breadcrumbs: [
         { name: 'Blog', url: '/blog' },
