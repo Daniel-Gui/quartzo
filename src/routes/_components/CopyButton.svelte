@@ -20,7 +20,7 @@
 <button
 	onclick={copy}
 	onanimationend={() => (isClicking = false)}
-	class="flex items-center justify-center rounded-full p-2 text-mint-400 transition-colors duration-200 hover:bg-white/10 hover:text-white {className}"
+	class="flex cursor-pointer items-center justify-center rounded-full p-2 text-mint-400 transition-colors duration-200 hover:bg-white/10 hover:text-white {className}"
 	class:animate-elastic={isClicking}
 	aria-label="Copiar"
 	title="Copiar para área de transferência"

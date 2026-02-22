@@ -33,7 +33,7 @@
 		<button
 			onclick={copySkill}
 			onanimationend={() => (isClicking = false)}
-			class="ds-btn ds-btn-secondary text-xs"
+			class="ds-btn ds-btn-secondary cursor-pointer text-xs"
 			class:animate-elastic={isClicking}
 			aria-label="Copy AI Skill to clipboard"
 		>
@@ -61,7 +61,7 @@
 
 		<button
 			onclick={downloadSkill}
-			class="ds-btn ds-btn-primary text-xs"
+			class="ds-btn ds-btn-primary cursor-pointer text-xs"
 			aria-label="Download SKILL.md file"
 		>
 			<svg
