@@ -1,6 +1,6 @@
 {
 	"name": "quartzo",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Uma biblioteca para SvelteKit com foco em SEO e GEO.",
 	"author": "Daniel Guimarães",
 	"license": "MIT",
