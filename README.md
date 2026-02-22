@@ -23,6 +23,14 @@ Simplifies the management of Meta Tags, Open Graph, Twitter Cards, and Schema.or
 - ⚡ **SSR Friendly**: Optimized for server-side rendering (SvelteKit).
 - 🛡️ **Safe JSON-LD**: No use of `{@html}` and `<` escaping in payload.
 
+### 🤖 AI Agent Auto-Setup
+
+Using an AI coding assistant (Antigravity, Cursor, Windsurf, Claude Code, etc.)? Quartzo includes a **SKILL.md** that lets your agent automatically install and configure SEO for your entire SvelteKit project — no manual setup needed.
+
+1. Copy or download the `SKILL.md` from [quartzo.heydan.dev](https://quartzo.heydan.dev)
+2. Add it to your agent's skills directory (e.g., `.cursor/skills/` or `.claude/skills/`)
+3. Ask your agent to set up SEO — it will handle everything
+
 ### Installation
 
 ```bash
@@ -137,6 +145,14 @@ Simplifica a gestão de Meta Tags, Open Graph, Twitter Cards e Schema.org JSON-L
 - 🌍 **GEO Location**: Suporte a locale e internacionalização básica.
 - ⚡ **SSR Friendly**: Otimizado para renderização no servidor (SvelteKit).
 - 🛡️ **JSON-LD Seguro**: Sem uso de `{@html}` e com escape de `<` no payload.
+
+### 🤖 Configuração Automática via Agente de IA
+
+Usa um assistente de IA para programar (Antigravity, Cursor, Windsurf, Claude Code, etc.)? O Quartzo inclui um **SKILL.md** que permite ao seu agente instalar e configurar o SEO automaticamente em todo o seu projeto SvelteKit — sem configuração manual.
+
+1. Copie ou baixe o `SKILL.md` em [quartzo.heydan.dev](https://quartzo.heydan.dev)
+2. Adicione ao diretório de skills do seu agente (ex: `.cursor/skills/` ou `.claude/skills/`)
+3. Peça ao agente para configurar o SEO — ele cuida de tudo
 
 ### Instalação
 
