@@ -1,10 +1,6 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import skillContent from '../../static/SKILL.md?raw';
 
 export const load = async () => {
-	const skillPath = resolve('SKILL.md');
-	const skillContent = await readFile(skillPath, 'utf-8');
-
 	return {
 		skillContent,
 		seo: {

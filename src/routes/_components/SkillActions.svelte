@@ -15,16 +15,6 @@
 		isClicking = true;
 		setTimeout(() => (copied = false), 2000);
 	}
-
-	function downloadSkill() {
-		const blob = new Blob([skillContent], { type: 'text/markdown' });
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement('a');
-		a.href = url;
-		a.download = 'SKILL.md';
-		a.click();
-		URL.revokeObjectURL(url);
-	}
 </script>
 
 <div class="flex flex-col items-center gap-3">
@@ -59,8 +49,9 @@
 			{copied ? 'Copied!' : 'Copy AI Skill'}
 		</button>
 
-		<button
-			onclick={downloadSkill}
+		<a
+			href="/SKILL.md"
+			download="SKILL.md"
 			class="ds-btn ds-btn-primary cursor-pointer text-xs"
 			aria-label="Download SKILL.md file"
 		>
@@ -79,6 +70,6 @@
 				/>
 			</svg>
 			Download Skill
-		</button>
+		</a>
 	</div>
 </div>
