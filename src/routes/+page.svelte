@@ -32,7 +32,7 @@
 	npmUrl="https://www.npmjs.com/package/quartzo"
 />
 
-<Hero />
+<Hero skillContent={data.skillContent} />
 <UsageTabs />
 <Faq />
 <Footer />

@@ -3,6 +3,9 @@
 	import { scale } from 'svelte/transition';
 
 	import CopyButton from './CopyButton.svelte';
+	import SkillActions from './SkillActions.svelte';
+
+	let { skillContent = '' } = $props();
 
 	const command = 'npm install quartzo';
 </script>
@@ -18,14 +21,11 @@
 						<code class="font-mono text-sm">{command}</code>
 						<CopyButton text={command} />
 					</div>
-					<!--
-					<a
-						class="ds-btn ds-btn-primary"
-						href="https://www.npmjs.com/"
-						rel="noreferrer"
-						target="_blank">Publish on npm</a
-					>
-						-->
+
+					{#if skillContent}
+						<div class="ds-divider mt-2 w-full"></div>
+						<SkillActions {skillContent} />
+					{/if}
 				</div>
 			</div>
 		</div>
