@@ -1,9 +1,10 @@
+@import '@fontsource-variable/inter';
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
 @theme {
-	--font-inter: 'Inter', sans-serif;
+	--font-inter: 'Inter Variable', sans-serif;
 	--color-mint-100: #e3eeec;
 	--color-mint-200: #d9e6e3;
 	--color-mint-300: #bac8c5;
