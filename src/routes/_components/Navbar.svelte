@@ -34,7 +34,7 @@
 	<div class="ds-navbar-container">
 		<!-- Logo -->
 		<div class="flex items-center gap-2">
-			<a href="/" class="ds-navbar-brand" aria-label="Quartzo - Página inicial" onclick={closeMenu}>
+			<a href="/" class="ds-navbar-brand" aria-label="Quartz - Homepage" onclick={closeMenu}>
 				<Brand class="h-8 w-auto" />
 			</a>
 		</div>
