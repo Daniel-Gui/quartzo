@@ -21,7 +21,8 @@ Simplifies the management of Meta Tags, Open Graph, Twitter Cards, and Schema.or
 - 🤖 **Schema.org**: Automatic JSON-LD for `WebPage`, `Article`, `ProfilePage`, and `CreativeWork`.
 - 🌍 **GEO Location**: Support for locale and basic internationalization.
 - ⚡ **SSR Friendly**: Optimized for server-side rendering (SvelteKit).
-- 🛡️ **Safe JSON-LD**: No use of `{@html}` and `<` escaping in payload.
+- 🛡️ **Safe JSON-LD**: Emitted unescaped (so `&` stays `&`), with every `<` written as `\u003c` so the payload can never close its `<script>` tag.
+- 🧩 **Extensible Schema**: Clean `headline` for structured data, extra `Person` properties (`sameAs`, `@id`, `worksFor`…) and extra nodes (`WebSite`, `Organization`, `FAQPage`…).
 
 ### 🤖 AI Agent Auto-Setup
 
@@ -117,6 +118,46 @@ export const load = async () => {
 | `alternates`    | `Array<{ hreflang: string; href: string }>`              | Alternative hreflang links                    | `[]`                                         |
 | `breadcrumbs`   | `Array<{ name: string; url: string }>`                   | Breadcrumbs for Schema.org                    | `[]`                                         |
 | `publisherType` | `'Person' \| 'Organization'`                             | Publisher type in Schema.org                  | `'Organization'`                             |
+| `headline`      | `string`                                                 | Title used in JSON-LD (`headline` / `name`)   | `title`                                      |
+| `personSchema`  | `Record<string, unknown>`                                | Extra properties merged into the `Person`     | -                                            |
+| `jsonLd`        | `Record<string, unknown> \| Record<string, unknown>[]`   | Extra Schema.org nodes appended to JSON-LD    | `[]`                                         |
+
+### Structured Data (JSON-LD)
+
+The component emits one `<script type="application/ld+json">`. Three props let you shape it without writing your own JSON-LD component:
+
+- **`headline`**: the title used inside the schema (`BlogPosting.headline`, `CreativeWork.name`, `WebPage.name`). Use it when `title` carries a site suffix, so "My Post | My Blog" stays in `<title>` while the schema says "My Post". Falls back to `title`. Open Graph and Twitter keep using `title`.
+- **`personSchema`**: properties merged into the generated `Person` (the `ProfilePage` main entity, the article `author`, or the creative work `creator`). Your values win over the generated ones, and `undefined` removes a generated one. Typical keys: `@id`, `sameAs`, `worksFor`, `alumniOf`, `givenName`.
+- **`jsonLd`**: one or more extra nodes appended after the page node and breadcrumbs. `@context` defaults to `https://schema.org`.
+
+```svelte
+<SeoGeoOptimizer
+	title="About | Jane Doe"
+	headline="About Jane Doe"
+	description="Full-stack developer specializing in SvelteKit."
+	url="/about"
+	siteUrl="https://example.com"
+	type="profile"
+	profileFirstName="Jane"
+	profileLastName="Doe"
+	profileJobTitle="Full-stack Developer"
+	personSchema={{
+		'@id': 'https://example.com/#person',
+		sameAs: ['https://github.com/janedoe', 'https://www.linkedin.com/in/janedoe'],
+		worksFor: { '@type': 'Organization', name: 'Acme' },
+		alumniOf: { '@type': 'CollegeOrUniversity', name: 'State University' }
+	}}
+	jsonLd={{
+		'@type': 'WebSite',
+		'@id': 'https://example.com/#website',
+		url: 'https://example.com',
+		name: 'Jane Doe',
+		publisher: { '@id': 'https://example.com/#person' }
+	}}
+/>
+```
+
+Pass the same `personSchema={{ '@id': 'https://example.com/#person' }}` on articles to link every post's author to that one `Person`.
 
 ### SEO Best Practices with SvelteKit
 
@@ -144,7 +185,8 @@ Simplifica a gestão de Meta Tags, Open Graph, Twitter Cards e Schema.org JSON-L
 - 🤖 **Schema.org**: JSON-LD automático para `WebPage`, `Article`, `ProfilePage` e `CreativeWork`.
 - 🌍 **GEO Location**: Suporte a locale e internacionalização básica.
 - ⚡ **SSR Friendly**: Otimizado para renderização no servidor (SvelteKit).
-- 🛡️ **JSON-LD Seguro**: Sem uso de `{@html}` e com escape de `<` no payload.
+- 🛡️ **JSON-LD Seguro**: Emitido sem escape HTML (o `&` continua `&`), com todo `<` escrito como `\u003c` para que o payload nunca feche a tag `<script>`.
+- 🧩 **Schema Extensível**: `headline` limpo para dados estruturados, propriedades extras na `Person` (`sameAs`, `@id`, `worksFor`…) e nós extras (`WebSite`, `Organization`, `FAQPage`…).
 
 ### 🤖 Configuração Automática via Agente de IA
 
@@ -240,6 +282,46 @@ export const load = async () => {
 | `alternates`    | `Array<{ hreflang: string; href: string }>`              | Links alternativos hreflang                           | `[]`                                         |
 | `breadcrumbs`   | `Array<{ name: string; url: string }>`                   | Breadcrumbs para Schema.org                           | `[]`                                         |
 | `publisherType` | `'Person' \| 'Organization'`                             | Tipo de publisher no Schema.org                       | `'Organization'`                             |
+| `headline`      | `string`                                                 | Título usado no JSON-LD (`headline` / `name`)         | `title`                                      |
+| `personSchema`  | `Record<string, unknown>`                                | Propriedades extras mescladas na `Person`             | -                                            |
+| `jsonLd`        | `Record<string, unknown> \| Record<string, unknown>[]`   | Nós Schema.org extras anexados ao JSON-LD             | `[]`                                         |
+
+### Dados Estruturados (JSON-LD)
+
+O componente emite um único `<script type="application/ld+json">`. Três props permitem ajustá-lo sem escrever seu próprio componente de JSON-LD:
+
+- **`headline`**: o título usado dentro do schema (`BlogPosting.headline`, `CreativeWork.name`, `WebPage.name`). Use quando o `title` tiver sufixo do site: "Meu Post | Meu Blog" fica no `<title>` e o schema recebe "Meu Post". Fallback: `title`. Open Graph e Twitter continuam usando `title`.
+- **`personSchema`**: propriedades mescladas na `Person` gerada (a entidade principal do `ProfilePage`, o `author` do artigo ou o `creator` da obra). Seus valores têm prioridade sobre os gerados, e `undefined` remove um gerado. Chaves comuns: `@id`, `sameAs`, `worksFor`, `alumniOf`, `givenName`.
+- **`jsonLd`**: um ou mais nós extras anexados depois do nó da página e dos breadcrumbs. O `@context` padrão é `https://schema.org`.
+
+```svelte
+<SeoGeoOptimizer
+	title="Sobre | Jane Doe"
+	headline="Sobre Jane Doe"
+	description="Desenvolvedora full-stack especializada em SvelteKit."
+	url="/sobre"
+	siteUrl="https://example.com"
+	type="profile"
+	profileFirstName="Jane"
+	profileLastName="Doe"
+	profileJobTitle="Desenvolvedora Full-stack"
+	personSchema={{
+		'@id': 'https://example.com/#person',
+		sameAs: ['https://github.com/janedoe', 'https://www.linkedin.com/in/janedoe'],
+		worksFor: { '@type': 'Organization', name: 'Acme' },
+		alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidade Estadual' }
+	}}
+	jsonLd={{
+		'@type': 'WebSite',
+		'@id': 'https://example.com/#website',
+		url: 'https://example.com',
+		name: 'Jane Doe',
+		publisher: { '@id': 'https://example.com/#person' }
+	}}
+/>
+```
+
+Passe o mesmo `personSchema={{ '@id': 'https://example.com/#person' }}` nos artigos para ligar o autor de cada post a essa mesma `Person`.
 
 ### Boas Práticas de SEO com SvelteKit
 
