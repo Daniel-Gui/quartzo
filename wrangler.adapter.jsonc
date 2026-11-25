@@ -1,0 +1,12 @@
+// Read only by @sveltejs/adapter-cloudflare (see svelte.config.js): it writes the SvelteKit
+// worker to `main`. Deploys use wrangler.jsonc, whose `main` is worker.js, a wrapper around it.
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "quartzo",
+	"compatibility_date": "2026-02-18",
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	}
+}
