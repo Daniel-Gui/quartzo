@@ -9,10 +9,13 @@
 	type TwitterCard = 'summary' | 'summary_large_image' | 'player' | 'app';
 	type AlternateLink = { href: string; hreflang: string };
 	type BreadcrumbItem = { name: string; url: string };
+	type JsonLdNode = Record<string, unknown>;
 
 	interface Props {
-		/** Título da página */
+		/** Título da página (`<title>`, meta, Open Graph e Twitter) */
 		title: string;
+		/** Título usado no JSON-LD (`headline`/`name`), sem sufixo do site. Fallback: `title` */
+		headline?: string;
 		/** Descrição da página */
 		description: string;
 		/** Tipo de página para OG e Schema.org */
@@ -67,10 +70,18 @@
 		section?: string;
 		/** Ano de criação (para works) */
 		year?: string;
+		/**
+		 * Propriedades Schema.org mescladas na `Person` gerada (perfil, autor do artigo ou
+		 * criador da obra), ex.: `@id`, `sameAs`, `worksFor`, `alumniOf`. Sobrescrevem as geradas.
+		 */
+		personSchema?: JsonLdNode;
+		/** Nós Schema.org extras anexados ao JSON-LD (ex.: `WebSite`, `Organization`, `FAQPage`) */
+		jsonLd?: JsonLdNode | JsonLdNode[];
 	}
 
 	let {
 		title,
+		headline,
 		description,
 		type = 'website',
 		url,
@@ -97,8 +108,16 @@
 		publishedDate,
 		tags = [],
 		section,
-		year
+		year,
+		personSchema,
+		jsonLd = []
 	}: Props = $props();
+
+	const SCHEMA_CONTEXT = 'https://schema.org';
+	// Tag de fechamento montada por concatenação: escrita literalmente, ela fecharia o bloco
+	// de script deste próprio componente.
+	const JSON_LD_OPEN = '<script type="application/ld+json">';
+	const JSON_LD_CLOSE = '</' + 'script>';
 
 	function joinUrl(base: string | undefined, path: string) {
 		if (!base) return path;
@@ -115,8 +134,18 @@
 		) as T;
 	}
 
+	/**
+	 * Serializa o JSON-LD para o corpo da tag de script, que nunca é decodificado como HTML.
+	 * Trocar todo `<` pelo escape unicode do JSON impede que o payload feche a tag ou abra um
+	 * comentário HTML, sem alterar os valores lidos por `JSON.parse`.
+	 */
 	function toJsonLd(value: unknown) {
 		return JSON.stringify(value).replace(/</g, '\\u003c');
+	}
+
+	/** `Person` gerada + `personSchema` (que tem prioridade). */
+	function buildPerson(fields: JsonLdNode) {
+		return compactObject({ '@type': 'Person', ...fields, ...personSchema });
 	}
 
 	let profileFallbackName = $derived([profileFirstName, profileLastName].filter(Boolean).join(' '));
@@ -129,7 +158,14 @@
 		image?.startsWith('http') ? image : image ? joinUrl(siteUrl, image) : undefined
 	);
 	let twitterCardValue = $derived(twitterCard ?? (imageUrl ? 'summary_large_image' : 'summary'));
-	let schemaJson = $derived(toJsonLd(generateSchema()));
+	let schemaTitle = $derived(headline || title);
+	let extraNodes = $derived(
+		(Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((node) => ({
+			'@context': SCHEMA_CONTEXT,
+			...node
+		}))
+	);
+	let schemaTag = $derived(JSON_LD_OPEN + toJsonLd(generateSchema()) + JSON_LD_CLOSE);
 	let robotsContent = $derived(noindex ? 'noindex, nofollow' : robots);
 	let googlebotContent = $derived(noindex ? (googlebot ?? 'noindex, nofollow') : googlebot);
 	let alternatesResolved = $derived(
@@ -160,12 +196,14 @@
 		const schemaType = getSchemaType();
 		let baseSchema: Record<string, unknown>;
 
+		const authorPerson =
+			authorName || personSchema ? buildPerson({ name: authorName, url: authorUrl }) : undefined;
+
 		if (schemaType === 'ProfilePage') {
 			baseSchema = {
-				'@context': 'https://schema.org',
+				'@context': SCHEMA_CONTEXT,
 				'@type': 'ProfilePage',
-				mainEntity: compactObject({
-					'@type': 'Person',
+				mainEntity: buildPerson({
 					name: profileName,
 					url: authorUrl,
 					image: imageUrl,
@@ -177,18 +215,12 @@
 			};
 		} else if (schemaType === 'BlogPosting') {
 			baseSchema = {
-				'@context': 'https://schema.org',
+				'@context': SCHEMA_CONTEXT,
 				'@type': 'BlogPosting',
-				headline: title,
+				headline: schemaTitle,
 				description: description,
 				image: imageUrl,
-				author: authorName
-					? compactObject({
-							'@type': 'Person',
-							name: authorName,
-							url: authorUrl
-						})
-					: undefined,
+				author: authorPerson,
 				publisher: siteName
 					? compactObject({
 							'@type': publisherType,
@@ -208,18 +240,12 @@
 			};
 		} else if (schemaType === 'CreativeWork') {
 			baseSchema = {
-				'@context': 'https://schema.org',
+				'@context': SCHEMA_CONTEXT,
 				'@type': 'CreativeWork',
-				name: title,
+				name: schemaTitle,
 				description: description,
 				image: imageUrl,
-				creator: authorName
-					? compactObject({
-							'@type': 'Person',
-							name: authorName,
-							url: authorUrl
-						})
-					: undefined,
+				creator: authorPerson,
 				dateCreated: year,
 				url: canonicalUrl,
 				keywords: keywords,
@@ -227,18 +253,20 @@
 			};
 		} else {
 			baseSchema = {
-				'@context': 'https://schema.org',
+				'@context': SCHEMA_CONTEXT,
 				'@type': 'WebPage',
-				name: title,
+				name: schemaTitle,
 				description: description,
 				url: canonicalUrl,
 				inLanguage: language
 			};
 		}
 
+		const nodes: JsonLdNode[] = [baseSchema];
+
 		if (breadcrumbs.length > 0) {
-			const breadcrumbSchema = {
-				'@context': 'https://schema.org',
+			nodes.push({
+				'@context': SCHEMA_CONTEXT,
 				'@type': 'BreadcrumbList',
 				itemListElement: breadcrumbs.map((item, index) => ({
 					'@type': 'ListItem',
@@ -246,12 +274,12 @@
 					name: item.name,
 					item: item.url.startsWith('http') ? item.url : joinUrl(siteUrl, item.url)
 				}))
-			};
-
-			return [baseSchema, breadcrumbSchema];
+			});
 		}
 
-		return baseSchema;
+		nodes.push(...extraNodes);
+
+		return nodes.length === 1 ? baseSchema : nodes;
 	}
 </script>
 
@@ -332,6 +360,7 @@
 		<meta name="twitter:creator" content={twitterCreator} />
 	{/if}
 
-	<!-- Schema.org JSON-LD for AI/GEO -->
-	<svelte:element this={'script'} type="application/ld+json">{schemaJson}</svelte:element>
+	<!-- Schema.org JSON-LD for AI/GEO (raw HTML: a script body is never entity-decoded) -->
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON payload, every "<" is unicode-escaped -->
+	{@html schemaTag}
 </svelte:head>

@@ -5,7 +5,7 @@ description: SEO and GEO optimization for SvelteKit projects using Quartzo. Use 
 
 # Quartzo SEO & GEO Optimizer
 
-Quartzo provides a single `<SeoGeoOptimizer>` Svelte 5 component that generates all SEO meta tags, Open Graph, Twitter Cards, and Schema.org JSON-LD. It uses `<svelte:head>` internally — no `{@html}` injection.
+Quartzo provides a single `<SeoGeoOptimizer>` Svelte 5 component that generates all SEO meta tags, Open Graph, Twitter Cards, and Schema.org JSON-LD. It uses `<svelte:head>` internally. The JSON-LD is serialized safely (every `<` is unicode-escaped) and is not HTML-encoded, so titles with `&`, `<` or quotes come out intact. Never add a second JSON-LD component for data Quartzo can carry: use `headline`, `personSchema` and `jsonLd` instead.
 
 ## Installation
 
@@ -89,6 +89,15 @@ export const load: PageServerLoad = async () => {
 | `profileFirstName` | `string`                                                 | —                | No       |
 | `profileLastName`  | `string`                                                 | —                | No       |
 | `profileJobTitle`  | `string`                                                 | —                | No       |
+| `headline`         | `string`                                                 | `title`          | No       |
+| `personSchema`     | `Record<string, unknown>`                                | —                | No       |
+| `jsonLd`           | `Record<string, unknown> \| Record<string, unknown>[]`   | `[]`             | No       |
+
+### Structured data props
+
+- `headline` — title used in the JSON-LD (`BlogPosting.headline`, `CreativeWork.name`, `WebPage.name`). Set it when `title` includes a site suffix such as `"My Post | My Blog"`, so the suffix stays out of the schema. `<title>`, Open Graph and Twitter keep using `title`.
+- `personSchema` — merged into the generated `Person`: the `ProfilePage` main entity, the article `author`, or the creative work `creator`. Its keys override generated ones; `undefined` removes one. Use it for `@id`, `sameAs` (social/profile URLs), `worksFor`, `alumniOf`, `givenName`, `familyName`, `address`, `knowsLanguage`.
+- `jsonLd` — one node or an array of nodes appended after the page node and breadcrumbs (`WebSite`, `Organization`, `FAQPage`, …). `@context` defaults to `https://schema.org`.
 
 ## Page Type Patterns
 
@@ -113,7 +122,8 @@ export const load: PageServerLoad = async () => {
 
 ```svelte
 <SeoGeoOptimizer
-	title={post.title}
+	title={`${post.title} | My Blog`}
+	headline={post.title}
 	description={post.excerpt}
 	url={`/blog/${post.slug}`}
 	siteUrl="https://example.com"
@@ -148,8 +158,23 @@ export const load: PageServerLoad = async () => {
 	profileLastName="Doe"
 	profileJobTitle="Full-stack Developer"
 	tags={['Svelte', 'TypeScript', 'Node.js']}
+	personSchema={{
+		'@id': 'https://example.com/#person',
+		sameAs: ['https://github.com/janedoe', 'https://www.linkedin.com/in/janedoe'],
+		worksFor: { '@type': 'Organization', name: 'Acme' },
+		alumniOf: { '@type': 'CollegeOrUniversity', name: 'State University' }
+	}}
+	jsonLd={{
+		'@type': 'WebSite',
+		'@id': 'https://example.com/#website',
+		url: 'https://example.com',
+		name: 'Jane Doe',
+		publisher: { '@id': 'https://example.com/#person' }
+	}}
 />
 ```
+
+Give the person a stable `@id` and reuse it (`personSchema={{ '@id': 'https://example.com/#person' }}`) on articles and creative works, so every author/creator links to the same entity.
 
 ### Creative Work (portfolios, projects)
 
@@ -209,6 +234,8 @@ After implementing, verify:
 - [ ] `siteUrl` is set to the production domain (e.g., `https://example.com`)
 - [ ] `image` is provided (minimum 1200×630px for optimal social sharing)
 - [ ] `type` matches the content: `website`, `article`, `profile`, or `creative_work`
+- [ ] If `title` has a site suffix, `headline` holds the bare title for the JSON-LD
+- [ ] Extra structured data goes through `personSchema` / `jsonLd`, not a second JSON-LD script
 - [ ] `language` and `locale` match the page language
 - [ ] `noindex` is `false` on indexable pages, `true` on thin/utility pages
 - [ ] Component is placed at the top level of the page component (not inside conditionals)
